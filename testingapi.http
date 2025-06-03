@@ -1,0 +1,28 @@
+@link = http://localhost:5001/api/books
+@link2 = http://localhost:5001/api/students
+
+# GET {{link}} HTTP/1.1
+GET {{link2}}/all
+###
+
+DELETE {{link}}/11
+###
+GET {{link}} 
+###
+GET {{link}}/all
+###
+put {{link}}/11
+Content-Type: application/json
+
+{ 
+    "name": "r",
+    "author": "granger",
+    "category": "electrical dept.",
+    "total_copies": 10,
+    "available_copies": 4,
+    "price":10.7
+}
+
+###
+
+GET {{link}}/data HTTP/1.1
