@@ -1,23 +1,40 @@
 @link = http://localhost:5001/api/books
 @link2 = http://localhost:5001/api/students
 
+POST {{link2}}/
+Content-Type: application/json
+
+{
+    "name": "John",
+    "roll_number": "22CS1001",
+    "department": "CSE",
+    "semester": 6,
+    "phone": 9876543210,
+    "email": "john@example.com"
+}
+###
+
+GET {{link2}}/return/:23
+###
+
 # GET {{link}} HTTP/1.1
 GET {{link2}}/all
 ###
 
-DELETE {{link}}/11
+DELETE {{link}}/17
 ###
 GET {{link}} 
 ###
 GET {{link}}/all
 ###
-put {{link}}/11
+put {{link}}/21
 Content-Type: application/json
 
 { 
-    "name": "r",
+    "title": "r",
     "author": "granger",
     "category": "electrical dept.",
+    "isbn":"92598743t5823645",
     "total_copies": 10,
     "available_copies": 4,
     "price":10.7
@@ -26,3 +43,4 @@ Content-Type: application/json
 ###
 
 GET {{link}}/data HTTP/1.1
+###

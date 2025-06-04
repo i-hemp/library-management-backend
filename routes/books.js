@@ -12,6 +12,7 @@ router.post("/", booksController.createBook); //c
 router.put("/:id", booksController.updateBook); //u
 router.delete("/:id", booksController.deleteBook); //d
 //issue routes
-router.get("/issue/:id", booksController.getBookForIssueById); //r by id
-
+router.post("/issue/:id", booksController.getBookForIssueById); //r by id
+router.post("/return/:id", booksController.getBookForReturnById); //r by id
+router.get("students-issue", booksController.studentsBookHistory);
 module.exports = router;

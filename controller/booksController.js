@@ -60,30 +60,77 @@ exports.getBookById = async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     console.log(err.message);
-    
+
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getBookForReturnById = async (req, res) => {
+  const { stuId, bid } = req.body;
+  try {
+    await db.query("begin");
+    await db.query(
+      "UPDATE book_issues SET return_date = CURRENT_DATE WHERE student_id = $1 AND book_id = $2 AND return_date IS NULL",
+      [stuId, bid]
+    );
+    await db.query(
+      "UPDATE books SET available_copies = available_copies + 1 WHERE id = $1",
+      [bid]
+    );
+    await db.query("COMMIT");
+    res.send("Book returned");
+  } catch (err) {
+    await db.query("ROLLBACK");
+    res.status(500).send(err.message);
+  }
+};
+
 exports.getBookForIssueById = async (req, res) => {
+  // const {stuId}=req.params;
+
   const { id } = req.params;
   try {
-    const result = await pool.query(`SELECT available_copies FROM books WHERE id = ${id}`);
-
-    if (result.rows.length === 0) {
+    const bookById =
+      await pool.query(`SELECT available_copies FROM books WHERE id = ${id};
+        `);
+    if (bookById.rows.length === 0) {
       return res.status(404).json({ message: "Book not found" });
     }
-    res.json(result.rows[0]);
+    if (bookById.rows[0].available_copies < 1)
+      return res.status(400).send("No copies available");
+    // res.json(result.rows[0]);
+    await pool.query("Begin");
+
+    await pool.query(`INSERT INTO book_issues (student_id, book_id, issue_date, due_date)
+                VALUES (${1}, ${id}, CURRENT_DATE, CURRENT_DATE + INTERVAL '14 days');
+                UPDATE books SET available_copies = available_copies - 1 WHERE id = ${id};`);
+    await pool.query("Commit");
+    res.send("Book issued");
   } catch (err) {
     console.log(err.message);
-    
-    res.status(500).json({ error: err.message });
+    await pool.query("rollback");
+    res.status(500).send(err.message);
   }
 };
-
+exports.studentsBookHistory = async (req, res) => {//not used!!!!!!!!!!!!!!!
+  const { identifier } = req.query;
+  try {
+    const result = await db.query(`
+      SELECT b.title, b.author, bi.issue_date, bi.due_date
+      FROM book_issues bi
+      JOIN books b ON bi.book_id = b.id
+      JOIN students s ON bi.student_id = s.id
+      WHERE (s.name = $1 OR s.roll_number = $1 OR CAST(s.phone AS TEXT) = $1)
+        AND bi.return_date IS NULL`, [identifier]);
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
 
 exports.createBook = async (req, res) => {
   const {
-    name,
+    title,
     author,
     available_copies,
     total_copies,
@@ -94,11 +141,15 @@ exports.createBook = async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO books (name, author, available_copies, total_copies, price,category,isbn) VALUES ($1, $2, $3, $4, $5,$6,$7) RETURNING *",
-      [name, author, available_copies, total_copies, price, category, isbn]
+      "INSERT INTO books (title, author, available_copies, total_copies, price,category,isbn) VALUES ($1, $2, $3, $4, $5,$6,$7) RETURNING *",
+      [title, author, available_copies, total_copies, price, category, isbn]
     );
+    console.log(`Sucess:${result.rows}`);
+
     res.status(201).json(result.rows);
   } catch (err) {
+    console.log(err.message);
+    
     res.status(500).json({ error: err.message });
   }
 };
