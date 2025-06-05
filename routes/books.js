@@ -13,6 +13,10 @@ router.put("/:id", booksController.updateBook); //u
 router.delete("/:id", booksController.deleteBook); //d
 //issue routes
 router.post("/issue/:id", booksController.getBookForIssueById); //r by id
-router.post("/return/:id", booksController.getBookForReturnById); //r by id
-router.get("students-issue", booksController.studentsBookHistory);
+// router.post("/return/:id", booksController.getBookForReturnById); //r by id
+router.get("/students-issue", booksController.studentsBookHistory);
+router.get("/issue/logs", booksController.issueLog);
+router.get("/issue/logs/:id", booksController.getStudentIssueLog);
+router.post("/return/:id", booksController.getBookForReturnById);
+
 module.exports = router;

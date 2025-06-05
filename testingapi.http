@@ -1,16 +1,37 @@
 @link = http://localhost:5001/api/books
 @link2 = http://localhost:5001/api/students
 
+
+DELETE {{link2}}/21 HTTP/1.1
+
+###
+POST {{link}}   
+Content-Type: application/json
+
+{
+    "student_id":1
+}
+###
+
+###
+GET {{link}}/issue/logs/1
+###
+
+GET {{link2}}/28
+###
+
+GET {{link}}/issue/log
+###
 POST {{link2}}/
 Content-Type: application/json
 
 {
-    "name": "John",
-    "roll_number": "22CS1001",
+    "name": "iw0329",
+    "roll_number": "230987",
     "department": "CSE",
     "semester": 6,
-    "phone": 9876543210,
-    "email": "john@example.com"
+    "phone": 1231344234,
+    "email": "uakdfn@example.com"
 }
 ###
 
