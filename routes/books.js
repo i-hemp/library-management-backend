@@ -8,8 +8,10 @@ router.get("/data", booksController.showData); //example code
 
 router.get("/all", booksController.getAllBooks); //r
 router.get("/:id", booksController.getBookById); //r by id
+router.get("/issue/logs/book/:id", booksController.bookIssueLog); //r by id
+// router.get("/issue/logs/book/:book_id", booksController.getIssueLogsForBook);
 router.post("/", booksController.createBook); //c
-router.put("/:id", booksController.updateBook); //u
+router.put("/put/:id", booksController.updateBook); //u
 router.delete("/:id", booksController.deleteBook); //d
 //issue routes
 router.post("/issue/:id", booksController.getBookForIssueById); //r by id

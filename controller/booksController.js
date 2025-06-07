@@ -16,7 +16,20 @@ var x = 0;
 //     "total_copies": 10,
 //     "available_copies": 4,
 // }
+exports.bookIssueLog = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM book_issues WHERE book_id = $1 ",
+      [req.params.id]
+    );
 
+    console.log(result.rows);
+
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 exports.issueLog = async (req, res) => {
   try {
     const result = await pool.query("select * from book_issues");
@@ -26,7 +39,7 @@ exports.issueLog = async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     console.log(err);
-    
+
     res.status(500).json({ error: err.message });
   }
 };
@@ -55,7 +68,7 @@ exports.showBooksSample = async (req, res) => {
 };
 exports.getStudentIssueLog = async (req, res) => {
   const { id } = req.params;
-console.log(id);
+  console.log(id);
 
   try {
     const result = await pool.query(
@@ -63,17 +76,16 @@ console.log(id);
       [id]
     );
     console.log(result.rows);
-    
+
     res.status(200).json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-
 // exports.getBookForReturnById = async (req, res) => {
-//   const { id } = req.params; 
-//   const { student_id } = req.body; 
+//   const { id } = req.params;
+//   const { student_id } = req.body;
 // console.log(id+" "+student_id);
 
 //   try {
@@ -82,7 +94,7 @@ console.log(id);
 //       [id, student_id]
 //     );
 //     console.log(issue.rows);
-    
+
 //     if (issue.rowCount === 0) {
 //       return res.status(404).json({ error: "No active issue found for this student and book" });
 //     }
@@ -102,7 +114,6 @@ console.log(id);
 //     res.status(500).json({ error: err.message });
 //   }
 // };
-
 
 exports.getAllBooks = async (req, res) => {
   try {
@@ -130,10 +141,10 @@ exports.getBookById = async (req, res) => {
 };
 
 exports.getBookForReturnById = async (req, res) => {
-  const {id}=req.params;
-  const {student_id} = req.body;
+  const { id } = req.params;
+  const { student_id } = req.body;
   console.log(`bid:${id}:::sid:${student_id}`);
-  
+
   try {
     await pool.query("begin");
     await pool.query(
@@ -228,7 +239,7 @@ exports.createBook = async (req, res) => {
 exports.updateBook = async (req, res) => {
   const { id } = req.params;
   const {
-    name,
+    title,
     author,
     available_copies,
     total_copies,
@@ -238,9 +249,21 @@ exports.updateBook = async (req, res) => {
   } = req.body;
   try {
     const result = await pool.query(
-      "UPDATE books SET name = $1, author = $2, available_copies = $3, total_copies = $4, price = $5, category = $6,isbn = $7 WHERE id = $8 RETURNING *",
-      [name, author, available_copies, total_copies, price, category, isbn, id]
+      "UPDATE books SET title = $1, author = $2, available_copies = $3, total_copies = $4, price = $5, category = $6,isbn = $7 WHERE id = $8 RETURNING *",
+      [title, author, available_copies, total_copies, price, category, isbn, id]
     );
+    console.log(
+      title,
+      author,
+      available_copies,
+      total_copies,
+      price,
+      category,
+      isbn
+    );
+    console.log("\n"+result.rows);
+    
+
     if (result.rows.length === 0) {
       //not table only the resultant array will store in result with js object styled values
       return res.status(404).json({ message: "Book not found" });
