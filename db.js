@@ -3,6 +3,9 @@ require("dotenv").config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl:{
+    rejectUnauthorized:false,
+  }
   // user: 'hemanth',
   // host: 'localhost',
   // database: 'lib1',//!!!!!!!!!!!!!!!!!!!!!!!database not table name !!!!!!!!!!!!!!!!!!!!!!!!!!
