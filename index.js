@@ -15,7 +15,11 @@ const PORT = process.env.PORT || 5001;
 // │   └── booksController.js
 // └── .env
 
-app.use(cors());
+app.use(cors(
+  {
+  origin:"https://librarypage443.netlify.app",
+}
+));
 app.use(express.json());
 app.use("/api/students", studentsRoutes);
 

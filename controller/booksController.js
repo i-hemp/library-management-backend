@@ -164,9 +164,8 @@ exports.getBookForReturnById = async (req, res) => {
 };
 
 exports.getBookForIssueById = async (req, res) => {
-  // const {student_id}=req.params;
 
-  const { id } = req.params;
+  const { id,sid } = req.params;
   try {
     const bookById =
       await pool.query(`SELECT available_copies FROM books WHERE id = ${id};
@@ -180,7 +179,7 @@ exports.getBookForIssueById = async (req, res) => {
     await pool.query("Begin");
 
     await pool.query(`INSERT INTO book_issues (student_id, book_id, issue_date, due_date)
-                VALUES (${32}, ${id}, CURRENT_DATE, CURRENT_DATE + INTERVAL '14 days');
+                VALUES (${sid}, ${id}, CURRENT_DATE, CURRENT_DATE + INTERVAL '14 days');
                 UPDATE books SET available_copies = available_copies - 1 WHERE id = ${id};`);
     await pool.query("Commit");
     res.send("Book issued");
