@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(cors(
   {
-  origin:"https://librarypage443.netlify.app",
+  origin:["https://librarypage443.netlify.app","http://localhost:3000"],
 }
 ));
 app.use(express.json());

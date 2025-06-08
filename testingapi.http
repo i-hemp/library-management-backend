@@ -10,7 +10,7 @@ GET	https://librarypage443.netlify.app/undefined/api/students/all
 
 GET https://library-management-backend-1-6ssc.onrender.com/api/students/all
 ###
-GET https://library-management-backend-1-6ssc.onrender.com/api/books/
+GET https://library-management-backend-1-6ssc.onrender.com/api/books/all
 ###
 GET http://localhost:5001/api/books/issue/logs/31 HTTP/1.1
 ###
