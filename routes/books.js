@@ -25,7 +25,6 @@ router.put("/put/:id", booksController.updateBook); //u
 router.delete("/:id", booksController.deleteBook); //d
 //issue routes
 router.post("/issue/:id/:sid", booksController.getBookForIssueById); //r by id
-router.get("/students-issue", booksController.studentsBookHistory);
 router.get("/issue/logs", booksController.issueLog);
 router.get("/issue/logs/:id", booksController.getStudentIssueLog);
 router.post("/return/:id", booksController.getBookForReturnById);
