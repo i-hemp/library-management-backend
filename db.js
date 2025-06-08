@@ -13,17 +13,7 @@ const pool = new Pool({
   // port: 5432,
 });
 
-// module.exports = pool;
 
-/**
- *  id: 1,
-    "name": "Clean Code",
-    "author": "Robert C. Martin",
-    "category": "Software Engineering",
-    "total_copies": 10,
-    "available_copies": 4,
-  },
- */
 const StudentsData=[
      {
     id: 2,

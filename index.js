@@ -1,19 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const booksRoutes = require("./routes/books"); //need to make routes fo the endpoints
+const booksRoutes = require("./routes/books"); 
 const studentsRoutes = require("./routes/students");
 require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// library-api/
-// ├── db.js
-// ├── index.js
-// ├── routes/
-// │   └── books.js
-// ├── controllers/
-// │   └── booksController.js
-// └── .env
 
 app.use(cors(
   {

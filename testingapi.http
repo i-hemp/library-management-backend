@@ -3,7 +3,14 @@
 
 post http://localhost:5001/api/books/issue/36/33 HTTP/1.1
 ###
-GET https://library-management-backend-1-6ssc.onrender.com/api/books/all
+	
+GET	https://librarypage443.netlify.app/undefined/api/students/all
+
+###
+
+GET https://library-management-backend-1-6ssc.onrender.com/api/students/all
+###
+GET https://library-management-backend-1-6ssc.onrender.com/api/books/
 ###
 GET http://localhost:5001/api/books/issue/logs/31 HTTP/1.1
 ###
@@ -11,8 +18,8 @@ put {{link}}/put/26
 Content-Type: application/json
 
 {
-       "title": "r",
-    "author": "granger",
+       "title": "render",
+    "author": "raja",
     "category": "electrical dept.",
     "isbn":"92598745823645",
     "total_copies": 10,
@@ -71,8 +78,8 @@ put {{link}}/21
 Content-Type: application/json
 
 { 
-    "title": "r",
-    "author": "granger",
+    "title": "ranger",
+    "author": "hermonie",
     "category": "electrical dept.",
     "isbn":"92598743t5823645",
     "total_copies": 10,

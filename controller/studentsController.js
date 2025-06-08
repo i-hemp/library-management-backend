@@ -13,7 +13,7 @@ exports.getAll = async (req, res) => {
 exports.updateStudentById = async (req, res) => {
   const { id } = req.params;
   const { name, roll_number, department, semester, phone, email } = req.body;
-  console.log(name, roll_number, department, semester, phone, email ,id);
+  // console.log(name, roll_number, department, semester, phone, email ,id);
   
   try {
     const result = await pool.query(
@@ -41,14 +41,14 @@ exports.getById = async (req, res) => {
 };
 exports.createStudent = async (req, res) => {
   const { name, roll_number, department, semester, phone, email } = req.body;
-  console.log(req.body); // this should now log the correct object
+  // console.log(req.body); 
 
   try {
     const result = await pool.query(
       "INSERT INTO students (roll_number , name , department , semester , phone , email) VALUES ($1, $2, $3, $4, $5 , $6) RETURNING *",
       [roll_number, name, department, semester, phone, email]
     );
-    console.log(`Success: ${result.rows}`);
+    // console.log(`Success: ${result.rows}`);
 
     res.status(201).json(result.rows);
   } catch (err) {
