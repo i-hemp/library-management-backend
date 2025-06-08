@@ -1,0 +1,68 @@
+{
+  "project_name": "Library Management System",
+  "description": "A fullstack PERN (PostgreSQL, Express, React, Node.js) web application to manage library operations such as books, students, and issue logs.",
+  "frontend": {
+    "framework": "React",
+    "package_manager": "npm",
+    "start_command": "npm start",
+    "port": 3000,
+    "env_file": ".env",
+    "env_variables": {
+      "REACT_APP_BACKEND_URL": "http://localhost:5001"
+    },
+    "dependencies": [
+      "axios",
+      "react-router-dom",
+      "tailwindcss",
+      "classnames"
+    ],
+    "deployment": {
+      "platform": "Netlify",
+      "build_command": "npm run build",
+      "publish_directory": "build"
+    }
+  },
+  "backend": {
+    "framework": "Node.js with Express",
+    "package_manager": "npm",
+    "start_command": "npm start (runs nodemon)",
+    "port": 5001,
+    "env_file": ".env",
+    "env_variables": {
+      "PORT": "5001",
+      "DATABASE_URL": "postgres://your_user:your_password@localhost:5432/librarydb"
+    },
+    "dependencies": [
+      "express",
+      "pg",
+      "cors",
+      "dotenv",
+      "body-parser",
+      "nodemon"
+    ]
+  },
+  "database": {
+    "type": "PostgreSQL",
+    "setup_steps": [
+      "Install PostgreSQL locally",
+      "Create a user and database using psql or pgAdmin",
+      "Update the DATABASE_URL in .env with your credentials"
+    ],
+    "schema": {
+      "books": "CREATE TABLE public.books (id SERIAL PRIMARY KEY, title VARCHAR(255) NOT NULL, author VARCHAR(255) NOT NULL, available_copies INTEGER NOT NULL, total_copies INTEGER NOT NULL, price NUMERIC(10,2) NOT NULL, category VARCHAR(255) NOT NULL, isbn BIGINT);",
+      "students": "CREATE TABLE public.students (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL, roll_number VARCHAR(255), department VARCHAR(255) NOT NULL, semester VARCHAR(255) NOT NULL, phone BIGINT, email VARCHAR(255) NOT NULL);",
+      "book_issues": "CREATE TABLE public.book_issues (id SERIAL PRIMARY KEY, student_id INTEGER REFERENCES public.students(id), book_id INTEGER REFERENCES public.books(id), issue_date DATE NOT NULL, due_date DATE NOT NULL, return_date DATE);"
+    }
+  },
+  "setup_instructions": [
+    "1. Clone both frontend and backend repositories.",
+    "2. Install dependencies: `npm install` in both repos.",
+    "3. Set up PostgreSQL and create the required tables using the provided schema.",
+    "4. Create a `.env` file in the backend with PORT and DATABASE_URL.",
+    "5. Create a `.env` file in the frontend with REACT_APP_BACKEND_URL.",
+    "6. Start backend: `npm start` (nodemon) — http://localhost:5001",
+    "7. Start frontend: `npm start` — http://localhost:3000",
+    "8. Ensure CORS is enabled on the backend for frontend communication.",
+    "9. Visit http://localhost:3000 to interact with the system."
+  ]
+}
