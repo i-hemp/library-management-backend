@@ -72,7 +72,7 @@ Server runs on: http://localhost:5001
 
 ## Deployment
 
-- **Frontend**: https://librarypage443.netlify.app/
+- **Frontend**:https://library-management-frontend-kohl.vercel.app/
 - **Backend**: (Hosted on Render by using this repo.)
 
 
