@@ -17,7 +17,7 @@
       "classnames"
     ],
     "deployment": {
-      "platform": "Netlify",
+      "platform": "versel",
       "build_command": "npm run build",
       "publish_directory": "build"
     }

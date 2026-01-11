@@ -18,7 +18,7 @@ It provides RESTful APIs to manage books, students, issue/return transactions, a
 
 - **Backend**: Node.js, Express
 - **Database**: PostgreSQL
-- **Deployment**: Render (for backend), Netlify (frontend)
+- **Deployment**: Render (for backend), versel (frontend)
 
 ## Project Structure
 
