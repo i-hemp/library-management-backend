@@ -17,9 +17,12 @@
       "classnames"
     ],
     "deployment": {
-      "platform": "versel",
+      "platform": "Vercel",
       "build_command": "npm run build",
-      "publish_directory": "build"
+      "publish_directory": "build",
+      "production_env_variables": {
+        "REACT_APP_BACKEND_URL": "https://library-management-backend-yu3f.onrender.com"
+      }
     }
   },
   "backend": {
@@ -30,7 +33,14 @@
     "env_file": ".env",
     "env_variables": {
       "PORT": "5001",
-      "DATABASE_URL": "postgres://your_user:your_password@localhost:5432/librarydb"
+      "DATABASE_URL": "postgresql://postgres:password@db.supabase.co:5432/postgres"
+    },
+    "deployment": {
+      "platform": "Render",
+      "production_env_variables": {
+        "PORT": "5001",
+        "DATABASE_URL": "postgresql://postgres:YOUR_PASSWORD@db.abhgqzhqruqtmccrbpfd.supabase.co:5432/postgres"
+      }
     },
     "dependencies": [
       "express",

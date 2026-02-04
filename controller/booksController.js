@@ -154,11 +154,24 @@ exports.createBook = async (req, res) => {
   } = req.body;
 
   try {
+    // Check if a book with the same title already exists (case-insensitive)
+    const existingBook = await pool.query(
+      "SELECT * FROM books WHERE LOWER(title) = LOWER($1)",
+      [title]
+    );
+
+    if (existingBook.rows.length > 0) {
+      return res.status(400).json({
+        error: "A book with this title already exists"
+      });
+    }
+
+    // Insert the new book
     const result = await pool.query(
       "INSERT INTO books (title, author, available_copies, total_copies, price,category,isbn) VALUES ($1, $2, $3, $4, $5,$6,$7) RETURNING *",
       [title, author, available_copies, total_copies, price, category, isbn]
     );
-    console.log(`Sucess:${result.rows}`);
+    console.log(`Success:${result.rows}`);
 
     res.status(201).json(result.rows);
   } catch (err) {
